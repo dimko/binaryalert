@@ -169,6 +169,6 @@ def run(bucket_name: str, analyzer_function_name: str, table_name: str) -> bool:
         print('Actual Results:')
         print(json.dumps(results, sort_keys=True, indent=4))
 
-    _cleanup(bucket_name, test_file_info, table_name, analyzer_version)
+    #_cleanup(bucket_name, test_file_info, table_name, analyzer_version)
     print('Done!')
     return bool(results)

@@ -58,6 +58,16 @@ data "aws_iam_policy_document" "binaryalert_analyzer_policy" {
   }
 
   statement {
+    sid = "DeleteFromS3Bucket"
+
+    actions = [
+      "s3:DeleteObject",
+    ]
+
+    resources = ["${concat(list(format("%s/*", aws_s3_bucket.binaryalert_binaries.arn)), var.external_s3_bucket_resources)}"]
+  }
+
+  statement {
     sid       = "PublishAlertsToSNS"
     actions   = ["sns:Publish"]
     resources = ["${concat(list(aws_sns_topic.yara_match_alerts.arn), aws_sns_topic.no_yara_match.*.arn)}"]

@@ -213,8 +213,7 @@ class MainTest(fake_filesystem_unittest.TestCase):
                     '%s matched YARA rules: %s',
                     mock.ANY,
                     {'evil_check.yar:contains_evil', 'externals.yar:extension_is_exe'}
-                )
-            ])
+                )])
 
             # Verify 2 UPX and yextend calls
             mock_output.assert_has_calls([

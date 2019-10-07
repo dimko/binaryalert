@@ -4,7 +4,7 @@ __pycache__/
 # Terraform backup and internal cache
 *.tfstate*
 *.terraform
-terraform_locals.tfvars
+/terraform/terraform_locals.tfvars
 
 # Lambda packages
 lambda_*.zip

@@ -12,6 +12,7 @@ import urllib.parse
 from botocore.exceptions import ClientError
 
 from lambda_functions.analyzer import analyzer_aws_lib, binary_info, yara_analyzer
+from lambda_functions.analyzer.delete_object import delete_object
 from lambda_functions.analyzer.common import COMPILED_RULES_FILEPATH, LOGGER
 
 # Build the YaraAnalyzer from the compiled rules file at import time (i.e. once per container).
@@ -131,6 +132,8 @@ def analyze_lambda_handler(event: Dict[str, Any], lambda_context: Any) -> Dict[s
                 lambda_version, os.environ['YARA_MATCHES_DYNAMO_TABLE_NAME'],
                 os.environ['YARA_ALERTS_SNS_TOPIC_ARN'],
                 sns_enabled=alerts_enabled)
+            # LOGGER.info('Deleting malicious file: %s in %s',object_key, bucket_name)
+            delete_object(bucket_name, object_key)
         else:
             LOGGER.info('%s did not match any YARA rules', binary)
             if alerts_enabled and os.environ['NO_MATCHES_SNS_TOPIC_ARN']:
